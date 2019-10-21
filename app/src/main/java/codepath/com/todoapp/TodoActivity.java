@@ -1,5 +1,6 @@
 package codepath.com.todoapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +17,8 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import codepath.com.todoapp.map.MapScreen;
 
 public class TodoActivity extends AppCompatActivity {
 
@@ -60,7 +63,9 @@ public class TodoActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_map_screen) {
+            Intent intentToMapScreen = new Intent(this, MapScreen.class);
+            startActivity(intentToMapScreen);
             return true;
         }
         return super.onOptionsItemSelected(item);

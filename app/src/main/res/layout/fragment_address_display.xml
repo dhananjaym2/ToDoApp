@@ -11,5 +11,5 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:textStyle="bold"
-        tools:text="addressToDisplay" />
+        tools:text="@string/loading" />
 </RelativeLayout>

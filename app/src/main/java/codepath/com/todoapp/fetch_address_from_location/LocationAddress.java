@@ -14,7 +14,7 @@ import java.util.Locale;
 
 public class LocationAddress {
 
-    private static final String TAG = "LocationAddress";
+    private static final String TAG = LocationAddress.class.getSimpleName();
 
     public static void getAddressFromLocation(final double latitude, final double longitude,
                                               final Context context, final Handler handler) {

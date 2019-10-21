@@ -23,7 +23,6 @@ public class AddressDisplayFragment extends Fragment {
 
     private TextView addressToDisplay;
     private final String logTag = AddressDisplayFragment.class.getSimpleName();
-//    List<Place.Field> placeFields = Collections.singletonList(Place.Field.NAME);
 
     @Nullable
     @Override
@@ -40,28 +39,28 @@ public class AddressDisplayFragment extends Fragment {
     }
 
     private void fetchAddressFromLatLng(LatLng clickedLatLng) {
-        if (InternetUtils.isConnectedToInternet(getActivity())) {
-            LocationAddress locationAddress = new LocationAddress();
-            locationAddress.getAddressFromLocation(clickedLatLng.latitude, clickedLatLng.longitude,
-                    getActivity(), new GeocoderHandler());
+        if (getActivity() != null) {
+            if (InternetUtils.isConnectedToInternet(getActivity())) {
+                LocationAddress.getAddressFromLocation(clickedLatLng.latitude, clickedLatLng.longitude,
+                        getActivity(), new GeocoderHandler());
 //            locationAddress.getAddressFromLatLng(getActivity(), clickedLatLng.latitude, clickedLatLng.longitude);
+            } else {
+                addressToDisplay.setText(getString(R.string.no_internet_connection));
+            }
         } else {
-            addressToDisplay.setText(getString(R.string.no_internet_connection));
+            Log.e(logTag, "getActivity() is null");
         }
-
     }
 
     private class GeocoderHandler extends Handler {
         @Override
         public void handleMessage(Message message) {
             String locationAddress;
-            switch (message.what) {
-                case 1:
-                    Bundle bundle = message.getData();
-                    locationAddress = bundle.getString("address");
-                    break;
-                default:
-                    locationAddress = null;
+            if (message.what == 1) {
+                Bundle bundle = message.getData();
+                locationAddress = bundle.getString("address");
+            } else {
+                locationAddress = null;
             }
             addressToDisplay.setText(locationAddress);
         }

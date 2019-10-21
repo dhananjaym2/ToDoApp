@@ -30,10 +30,7 @@ public class TodoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo);
-        lvItems = (ListView) findViewById(R.id.listView);
-//        items = new ArrayList<String>();
-//        items.add("Item 1");
-//        items.add("Item 2");
+        lvItems = findViewById(R.id.listView);
 
         lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -46,7 +43,7 @@ public class TodoActivity extends AppCompatActivity {
             }
         });
         items = readItems();
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
         lvItems.setAdapter(arrayAdapter);
     }
 
@@ -75,10 +72,9 @@ public class TodoActivity extends AppCompatActivity {
         EditText etItemToAdd = (EditText) findViewById(R.id.etItem);
         String itemToAdd = etItemToAdd.getText().toString();
         items.add(itemToAdd);
-//        arrayAdapter.add(itemToAdd);
         arrayAdapter.notifyDataSetChanged();
         etItemToAdd.setText("");
-        saveItems(/*itemToAdd*/);
+        saveItems();
     }
 
     private ArrayList<String> readItems() {
@@ -88,15 +84,13 @@ public class TodoActivity extends AppCompatActivity {
             return new ArrayList<String>(FileUtils.readLines(todoFile));
         } catch (IOException e) {
             e.printStackTrace();
-            return new ArrayList<String>();
+            return new ArrayList<>();
         }
     }
 
-    private void saveItems(/*String itemToAdd*/) {
+    private void saveItems() {
         File filesDir = getFilesDir();
         File todoFile = new File(filesDir, "todo.txt");
-//        ArrayList<String> itemArrayToAdd = new ArrayList<String>();
-//        itemArrayToAdd.add(itemToAdd);
         try {
             FileUtils.writeLines(todoFile, items);
         } catch (IOException e) {

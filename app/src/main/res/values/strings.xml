@@ -4,4 +4,6 @@
     <string name="action_map_screen">Map Screen</string>
     <string name="hint_enter">Enter a new item</string>
     <string name="add">Add</string>
+    <string name="no_internet_connection">Please check your internet connection and try again!</string>
+    <string name="loading">Loading...</string>
 </resources>
